@@ -1,0 +1,10 @@
+{
+  "_is_on": {
+    "message": " 已开启",
+    "description": ""
+  },
+  "_is_off": {
+    "message": " 已关闭",
+    "description": ""
+  }
+}

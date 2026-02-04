@@ -1,0 +1,10 @@
+{
+  "_is_on": {
+    "message": " est activé",
+    "description": ""
+  },
+  "_is_off": {
+    "message": " est désactivé",
+    "description": ""
+  }
+}
