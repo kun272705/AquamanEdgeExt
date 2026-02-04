@@ -52,10 +52,7 @@ export class Ext {
         break;
 
       case 'taskDiscovered':
-      case 'CAPTCHAPopped':
-      case 'executionCompleted':
-      case 'executionInterrupted':
-      case 'errorOccurred':
+      case 'progressMade':
 
         this.port.sendMessage({ 'title': e.type, 'content': e.detail });
 

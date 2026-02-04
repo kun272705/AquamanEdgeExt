@@ -14,9 +14,9 @@ export class Tab {
 
   enjoy() {
 
-    chrome.tabs.onUpdated.addListener((tabId) => this.handleEvent({ 'type': 'tabUpdated', 'detail': { 'tabId': tabId } }));
+    browser.tabs.onUpdated.addListener((tabId) => this.handleEvent({ 'type': 'tabUpdated', 'detail': { 'tabId': tabId } }));
 
-    chrome.debugger.onDetach.addListener((target) => this.handleEvent({ 'type': 'targetDetached', 'detail': { 'tabId': target.tabId } }));
+    browser.debugger.onDetach.addListener((target) => this.handleEvent({ 'type': 'targetDetached', 'detail': { 'tabId': target.tabId } }));
   }
 
   handleEvent(e) {
@@ -44,8 +44,8 @@ export class Tab {
     if ((await this.isAttached(tabId)) === true) return;
 
     try {
-      await chrome.debugger.attach({ 'tabId': tabId }, settings.CDPVersion);
-      await chrome.debugger.sendCommand({ 'tabId': tabId }, 'Fetch.enable', { 'patterns': [{ 'requestStage': 'Response' }] });
+      await browser.debugger.attach({ 'tabId': tabId }, settings.CDPVersion);
+      await browser.debugger.sendCommand({ 'tabId': tabId }, 'Fetch.enable', { 'patterns': [{ 'requestStage': 'Response' }] });
     } catch (error) {
       console.warn(Date.now() / 1000, error);
     }
@@ -53,7 +53,7 @@ export class Tab {
 
   async detachTargets() {
 
-    const targets = await chrome.debugger.getTargets();
+    const targets = await browser.debugger.getTargets();
 
     targets
       .filter((item) => item.attached === true && item.tabId !== undefined)
@@ -62,7 +62,7 @@ export class Tab {
 
   async isAttached(tabId) {
 
-    const targets = await chrome.debugger.getTargets();
+    const targets = await browser.debugger.getTargets();
     
     return targets.find((item) => item.attached === true && item.tabId === tabId) !== undefined;
   }
@@ -70,7 +70,7 @@ export class Tab {
   async detachTarget(tabId) {
 
     try {
-      await chrome.debugger.detach({ 'tabId': tabId });
+      await browser.debugger.detach({ 'tabId': tabId });
     } catch (error) {
       console.warn(Date.now() / 1000, error);
     }

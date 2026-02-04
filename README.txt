@@ -1,4 +1,4 @@
 
-Aquaman Edge Ext
+Aquaman Browser Ext
 
-This is the Aquaman Edge Ext source code repository.
+This is the Aquaman Browser Ext source code repository.

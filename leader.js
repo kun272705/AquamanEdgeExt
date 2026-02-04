@@ -24,11 +24,11 @@ export class Leader {
 
   discoverTask(conversation) {
 
-    const agent = this.agents.find((item) => (
+    const agents = this.agents.filter((item) => (
       item.patterns.find((element) => element.test(conversation.tab.url) === true) !== undefined
     ));
 
-    if (agent !== undefined) agent.instance.discoverTask(conversation);
+    agents.forEach((item) => item.instance.discoverTask(conversation));
   }
 
   startExecution(execution) {
