@@ -28,8 +28,9 @@ export class Port {
     this.port = chrome.runtime.connectNative(settings.nativeMessagingHostName);
 
     this.port.onDisconnect.addListener(() => {
-      if (chrome.runtime.lastError) {
-        console.warn(Date.now() / 1000, chrome.runtime.lastError);
+      const error = chrome.runtime.lastError;
+      if (error !== undefined) {
+        console.warn(Date.now() / 1000, error);
         clearTimeout(this.reconnectTimerId);
         this.reconnectTimerId = setTimeout(() => this.connect(), 7000);
       }

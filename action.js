@@ -53,13 +53,12 @@ export class Action {
 
     this.ext.handleEvent({ 'type': 'stateChanged', 'detail': { 'state': this.state } });
 
-    chrome.action.setIcon({
-      'path': {
-        '16': `./icons/icon16-${this.state}.png`,
-        '48': `./icons/icon48-${this.state}.png`,
-        '128': `./icons/icon128-${this.state}.png`
-      }
-    });
+    const path = {
+      '16': `./icons/icon16-${this.state}.png`,
+      '48': `./icons/icon48-${this.state}.png`,
+      '128': `./icons/icon128-${this.state}.png`
+    };
+    chrome.action.setIcon({ 'path': path });
 
     chrome.action.setTitle({ 'title': settings.extName + chrome.i18n.getMessage(`_is_${this.state}`) });
   }
