@@ -16,7 +16,7 @@ export class Action {
 
     this.syncState();
 
-    browser.action.onClicked.addListener(() => this.handleEvent({ 'type': 'actionClicked' }));
+    chrome.action.onClicked.addListener(() => this.handleEvent({ 'type': 'actionClicked' }));
   }
 
   handleEvent(e) {
@@ -37,7 +37,7 @@ export class Action {
 
       case undefined:
 
-        const result = await browser.storage.local.get({ 'state': 'on' });
+        const result = await chrome.storage.local.get({ 'state': 'on' });
         this.state = result.state;
 
         break;
@@ -46,14 +46,14 @@ export class Action {
       case 'off':
 
         this.state = state;
-        browser.storage.local.set({ 'state': this.state });
+        chrome.storage.local.set({ 'state': this.state });
 
         break;
     }
 
     this.ext.handleEvent({ 'type': 'stateChanged', 'detail': { 'state': this.state } });
 
-    browser.action.setIcon({
+    chrome.action.setIcon({
       'path': {
         '16': `./icons/icon16-${this.state}.png`,
         '48': `./icons/icon48-${this.state}.png`,
@@ -61,6 +61,6 @@ export class Action {
       }
     });
 
-    browser.action.setTitle({ 'title': settings.extName + browser.i18n.getMessage(`_is_${this.state}`) });
+    chrome.action.setTitle({ 'title': settings.extName + chrome.i18n.getMessage(`_is_${this.state}`) });
   }
 };

@@ -3,7 +3,7 @@ import { DouyinChannelDownloader } from './agents/douyin-channel-downloader/douy
 
 export class settings {
 
-  static extName = 'Aquaman Browser Ext';
+  static extName = 'Aquaman Edge Ext';
 
   static CDPVersion = '1.3';
 

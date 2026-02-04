@@ -12,7 +12,7 @@ export class Bug {
 
   enjoy() {
 
-    browser.debugger.onEvent.addListener((source, type, args) => this.handleEvent({ 'type': type, 'detail': { 'source': source, 'args': args } }));
+    chrome.debugger.onEvent.addListener((source, type, args) => this.handleEvent({ 'type': type, 'detail': { 'source': source, 'args': args } }));
   }
 
   handleEvent(e) {
@@ -35,15 +35,15 @@ export class Bug {
     const requestId = args.requestId;
 
     try {
-      const tab = await browser.tabs.get(tabId);
-      const responseBody = await browser.debugger.sendCommand({ 'tabId': tabId }, 'Fetch.getResponseBody', { 'requestId': requestId });
+      const tab = await chrome.tabs.get(tabId);
+      const responseBody = await chrome.debugger.sendCommand({ 'tabId': tabId }, 'Fetch.getResponseBody', { 'requestId': requestId });
       this.ext.handleEvent({ 'type': 'conversationIntercepted', 'detail': { 'conversation': { 'tab': tab, ...args, 'responseBody': responseBody } } });
     } catch (error) {
       console.warn(Date.now() / 1000, error);
     }
 
     try {
-      await browser.debugger.sendCommand({ 'tabId': tabId }, 'Fetch.continueRequest', { 'requestId': requestId });
+      await chrome.debugger.sendCommand({ 'tabId': tabId }, 'Fetch.continueRequest', { 'requestId': requestId });
     } catch (error) {
       console.warn(Date.now() / 1000, error);
     }
