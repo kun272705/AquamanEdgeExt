@@ -8,9 +8,13 @@ import { Port } from './port.js';
 export class Ext {
 
   action;
+
   tab;
+
   bug;
+
   leader;
+
   port;
 
   state;
@@ -18,69 +22,70 @@ export class Ext {
   constructor() {
 
     this.action = new Action(this);
+
     this.tab = new Tab(this);
+
     this.bug = new Bug(this);
+
     this.leader = new Leader(this);
+
     this.port = new Port(this);
   }
 
   enjoy() {
 
     this.action.enjoy();
+
     this.tab.enjoy();
+
     this.bug.enjoy();
+
     this.leader.enjoy();
+
     this.port.enjoy();
   }
 
   handleEvent(e) {
 
-    if (!(e.type === 'stateChanged' || this.state === 'on')) return;
+    if (!(this.state === 'on' || e.type === 'Port.stateChanged')) return;
 
     switch (e.type) {
 
-      case 'stateChanged':
+      case 'Agent.workflowQueued':
+      case 'Agent.workflowStuck':
+      case 'Agent.workflowCompleted':
 
-        this.changeState(e.detail.state);
-
-        break;
-
-      case 'conversationIntercepted':
-
-        this.leader.discoverTask(e.detail.conversation);
+        this.port.handleEvent(e);
 
         break;
 
-      case 'taskDiscovered':
-      case 'progressMade':
+      case 'App.workflowAccepted':
+      case 'App.workflowRejected':
+      case 'App.workflowCanceled':
 
-        this.port.sendMessage({ 'title': e.type, 'content': e.detail });
-
-        break;
-
-      case 'startExecution':
-
-        this.leader.startExecution(e.detail.execution);
+        this.leader.handleEvent(e);
 
         break;
 
-      case 'stopExecution':
+      case 'Bug.conversationIntercepted':
 
-        this.leader.stopExecution(e.detail.execution);
+        this.leader.handleEvent(e);
+
+        break;
+
+      case 'Port.stateChanged':
+
+        this.state = e.detail.state;
+
+        this.action.handleEvent(e);
+
+        this.tab.handleEvent(e);
+
+        this.bug.handleEvent(e);
+
+        this.leader.handleEvent(e);
 
         break;
     }
-  }
-
-  changeState(state) {
-
-    this.state = state;
-
-    this.tab.state = this.state;
-    this.bug.state = this.state;
-    this.leader.state = this.state;
-    this.port.state = this.state;
-
-    if (this.state === 'off') this.tab.detachTargets();
   }
 };

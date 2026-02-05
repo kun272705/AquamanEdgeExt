@@ -14,29 +14,44 @@ export class Tab {
 
   enjoy() {
 
-    chrome.tabs.onUpdated.addListener((tabId) => this.handleEvent({ 'type': 'tabUpdated', 'detail': { 'tabId': tabId } }));
+    chrome.tabs.onUpdated.addListener((tabId) => this.handleEvent({ 'type': 'Tab.tabUpdated', 'detail': { 'tabId': tabId } }));
 
-    chrome.debugger.onDetach.addListener((target) => this.handleEvent({ 'type': 'targetDetached', 'detail': { 'tabId': target.tabId } }));
+    chrome.debugger.onDetach.addListener((target) => this.handleEvent({ 'type': 'Tab.targetDetached', 'detail': { 'tabId': target.tabId } }));
   }
 
   handleEvent(e) {
 
-    if (this.state !== 'on') return;
+    if (!(this.state === 'on' || e.type === 'Port.stateChanged')) return;
     
     switch (e.type) {
 
-      case 'tabUpdated':
+      case 'Port.stateChanged':
+
+        this.state = e.detail.state;
+
+        if (this.state === 'off') this.detachTargets();
+
+        break;
+
+      case 'Tab.tabUpdated':
 
         this.attachTarget(e.detail.tabId);
 
         break;
 
-      case 'targetDetached':
+      case 'Tab.targetDetached':
 
         this.attachTarget(e.detail.tabId);
 
         break;
     }
+  }
+
+  async isAttached(tabId) {
+
+    const targets = await chrome.debugger.getTargets();
+    
+    return targets.find((item) => item.attached === true && item.tabId === tabId) !== undefined;
   }
     
   async attachTarget(tabId) {
@@ -51,22 +66,6 @@ export class Tab {
     }
   }
 
-  async detachTargets() {
-
-    const targets = await chrome.debugger.getTargets();
-
-    targets
-      .filter((item) => item.attached === true && item.tabId !== undefined)
-      .forEach((item) => this.detachTarget(item.tabId));
-  }
-
-  async isAttached(tabId) {
-
-    const targets = await chrome.debugger.getTargets();
-    
-    return targets.find((item) => item.attached === true && item.tabId === tabId) !== undefined;
-  }
-
   async detachTarget(tabId) {
 
     try {
@@ -74,5 +73,14 @@ export class Tab {
     } catch (error) {
       console.warn(Date.now() / 1000, error);
     }
+  }
+
+  async detachTargets() {
+
+    const targets = await chrome.debugger.getTargets();
+
+    targets
+      .filter((item) => item.attached === true && item.tabId !== undefined)
+      .forEach((item) => this.detachTarget(item.tabId));
   }
 };

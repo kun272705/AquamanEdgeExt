@@ -13,45 +13,25 @@ export class Action {
   }
 
   enjoy() {
-
-    this.syncState();
-
-    chrome.action.onClicked.addListener(() => this.handleEvent({ 'type': 'actionClicked' }));
   }
 
   handleEvent(e) {
 
+    if (!(this.state === 'on' || e.type === 'Port.stateChanged')) return;
+
     switch (e.type) {
 
-      case 'actionClicked':
+      case 'Port.stateChanged':
 
-        this.syncState({ 'on': 'off', 'off': 'on' }[this.state]);
+        this.syncState(e.detail.state);
 
         break;
     }
   }
 
-  async syncState(state) {
+  syncState(state) {
 
-    switch (state) {
-
-      case undefined:
-
-        const result = await chrome.storage.local.get({ 'state': 'on' });
-        this.state = result.state;
-
-        break;
-
-      case 'on':
-      case 'off':
-
-        this.state = state;
-        chrome.storage.local.set({ 'state': this.state });
-
-        break;
-    }
-
-    this.ext.handleEvent({ 'type': 'stateChanged', 'detail': { 'state': this.state } });
+    this.state = state;
 
     const path = {
       '16': `./icons/icon16-${this.state}.png`,

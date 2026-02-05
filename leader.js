@@ -13,35 +13,57 @@ export class Leader {
     
     this.ext = ext;
 
-    this.agents = settings.agentRegistry.map((item) => ({
-      'patterns': item.patterns.map((element) => new URLPattern(element)),
-      'instance': new item['class'](this.ext)
-    }));
+    this.agents = settings.registeredAgents.map((item) => new item(this));
   }
 
   enjoy() {
+
+    this.agents.forEach((item) => item.enjoy());
   }
 
-  discoverTask(conversation) {
+  handleEvent(e) {
+    
+    if (!(this.state === 'on' || e.type === 'Port.stateChanged')) return;
 
-    const agents = this.agents.filter((item) => (
-      item.patterns.find((element) => element.test(conversation.tab.url) === true) !== undefined
-    ));
+    switch (e.type) {
 
-    agents.forEach((item) => item.instance.discoverTask(conversation));
-  }
+      case 'Agent.workflowQueued':
+      case 'Agent.workflowStuck':
+      case 'Agent.workflowCompleted':
 
-  startExecution(execution) {
+        this.ext.handleEvent(e);
 
-    const agent = this.agents.find((item) => item.constructor.name === execution.agent);
+        break;
 
-    if (agent !== undefined) agent.instance.startExecution(execution);
-  }
+      case 'App.workflowAccepted':
+      case 'App.workflowRejected':
+      case 'App.workflowCanceled':
 
-  stopExecution(execution) {
+        const agent = e.detail.agent;
 
-    const agent = this.agents.find((item) => item.constructor.name === execution.agent);
+        this.agents
+          .filter((item) => item.constructor.name === agent)
+          .forEach((item) => item.handleEvent(e));
 
-    if (agent !== undefined) agent.instance.stopExecution(execution);
+        break;
+
+      case 'Bug.conversationIntercepted':
+
+        const url = e.detail.tab.url;
+
+        this.agents
+          .filter((item) => item.pattern.test(url) === true)
+          .forEach((item) => item.handleEvent(e));
+
+        break;
+
+      case 'Port.stateChanged':
+
+        this.state = e.detail.state;
+
+        this.agents.forEach((item) => item.handleEvent(e));
+
+        break;
+    }
   }
 };
