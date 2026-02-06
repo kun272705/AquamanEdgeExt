@@ -25,7 +25,7 @@ export class Port {
 
   handleEvent(e) {
 
-    if (!(this.state === 'on' || e.type === 'App.ponged')) return;
+    if (!(this.state === 'on' || e.type === 'App.pong')) return;
 
     switch (e.type) {
 
@@ -41,7 +41,7 @@ export class Port {
 
         break;
 
-      case 'App.ponged':
+      case 'App.pong':
 
         const state = e.detail.state;
         if (!(state === 'on' || state === 'off')) return;
@@ -72,7 +72,7 @@ export class Port {
 
     try {
 
-      this.port.postMessage({ 'type': 'Port.pinged' });
+      this.port.postMessage({ 'type': 'Port.ping' });
     } catch (error) {
 
       console.warn(Date.now() / 1000, error);
