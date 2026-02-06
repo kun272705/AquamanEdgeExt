@@ -9,6 +9,11 @@
     "128": "./icons/icon128.png"
   },
   "action": {
+    "default_icon": {
+      "16": "./icons/icon16-off.png",
+      "48": "./icons/icon48-off.png",
+      "128": "./icons/icon128-off.png"
+    }
   },
   "background": {
     "service_worker": "./service-worker.js",

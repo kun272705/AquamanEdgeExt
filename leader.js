@@ -38,7 +38,7 @@ export class Leader {
       case 'App.workflowAccepted':
       case 'App.workflowCanceled':
 
-        this.agents.filter(item => item.constructor.name === e.detail.agentClass).forEach(item => item.handleEvent(e));
+        this.agents.filter(item => item.constructor.name === e.detail.agentClassName).forEach(item => item.handleEvent(e));
 
         break;
 
