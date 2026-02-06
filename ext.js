@@ -52,15 +52,14 @@ export class Ext {
     switch (e.type) {
 
       case 'Agent.workflowQueued':
-      case 'Agent.workflowStuck':
       case 'Agent.workflowCompleted':
+      case 'Agent.workflowStuck':
 
         this.port.handleEvent(e);
 
         break;
 
       case 'App.workflowAccepted':
-      case 'App.workflowRejected':
       case 'App.workflowCanceled':
 
         this.leader.handleEvent(e);

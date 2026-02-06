@@ -9,33 +9,29 @@ export class Port {
 
   port;
 
-  pingDelayMilliseconds;
-
   constructor(ext) {
     
     this.ext = ext;
-
-    this.pingDelayMilliseconds = 3000;
   }
   
   enjoy() {
 
     this.connect();
 
-    setInterval(() => this.ping(), this.pingDelayMilliseconds);
+    setInterval(() => this.ping(), 3000);
 
-    this.port.onMessage.addListener((e) => this.handleEvent(e));
+    this.port.onMessage.addListener(e => this.handleEvent(e));
   }
 
   handleEvent(e) {
 
-    if (!(this.state === 'on' || e.type === 'App.ponged')) return;
+    if (!(this.state === 'on' || e.type === 'App.pong')) return;
 
     switch (e.type) {
 
       case 'Agent.workflowQueued':
-      case 'Agent.workflowStuck':
       case 'Agent.workflowCompleted':
+      case 'Agent.workflowStuck':
 
         try {
           this.port.postMessage(e);
@@ -45,14 +41,15 @@ export class Port {
 
         break;
 
-      case 'App.ponged':
-        
-        this.syncState(e.detail.state);
+      case 'App.pong':
+
+        const state = e.detail.state;
+        if (!(state === 'on' || state === 'off')) return;
+        this.syncState(state);
 
         break;
 
       case 'App.workflowAccepted':
-      case 'App.workflowRejected':
       case 'App.workflowCanceled':
 
         this.ext.handelEvent(e);
@@ -67,9 +64,7 @@ export class Port {
 
     this.port.onDisconnect.addListener(() => {
       const error = chrome.runtime.lastError;
-      if (error !== undefined) {
-        console.warn(Date.now() / 1000, error);
-      }
+      if (error !== undefined) console.warn(Date.now() / 1000, error);
     });
   }
 
@@ -77,7 +72,7 @@ export class Port {
 
     try {
 
-      this.port.postMessage({ 'type': 'Port.pinged' });
+      this.port.postMessage({ 'type': 'Port.ping' });
     } catch (error) {
 
       console.warn(Date.now() / 1000, error);
@@ -89,8 +84,6 @@ export class Port {
   }
 
   syncState(state) {
-
-    if (!(state === 'on' || state === 'off')) return;
 
     if (this.state !== state) {
       this.state = state;

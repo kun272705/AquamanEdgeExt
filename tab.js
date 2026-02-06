@@ -14,9 +14,9 @@ export class Tab {
 
   enjoy() {
 
-    chrome.tabs.onUpdated.addListener((tabId) => this.handleEvent({ 'type': 'Tab.tabUpdated', 'detail': { 'tabId': tabId } }));
+    chrome.tabs.onUpdated.addListener(tabId => this.handleEvent({ 'type': 'Tab.tabUpdated', 'detail': { 'tabId': tabId } }));
 
-    chrome.debugger.onDetach.addListener((target) => this.handleEvent({ 'type': 'Tab.targetDetached', 'detail': { 'tabId': target.tabId } }));
+    chrome.debugger.onDetach.addListener(target => this.handleEvent({ 'type': 'Tab.targetDetached', 'detail': { 'tabId': target.tabId } }));
   }
 
   handleEvent(e) {
@@ -51,7 +51,7 @@ export class Tab {
 
     const targets = await chrome.debugger.getTargets();
     
-    return targets.find((item) => item.attached === true && item.tabId === tabId) !== undefined;
+    return targets.find(item => item.attached === true && item.tabId === tabId) !== undefined;
   }
     
   async attachTarget(tabId) {
@@ -80,7 +80,7 @@ export class Tab {
     const targets = await chrome.debugger.getTargets();
 
     targets
-      .filter((item) => item.attached === true && item.tabId !== undefined)
-      .forEach((item) => this.detachTarget(item.tabId));
+      .filter(item => item.attached === true && item.tabId !== undefined)
+      .forEach(item => this.detachTarget(item.tabId));
   }
 };

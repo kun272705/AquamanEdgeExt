@@ -1,6 +1,4 @@
 
-import { DouyinChannelExporter } from './agents/douyin-channel-exporter/douyin-channel-exporter.js';
-
 export class settings {
 
   static extName = 'Aquaman Edge Ext';
@@ -10,6 +8,5 @@ export class settings {
   static CDPVersion = '1.3';
       
   static registeredAgents = [
-    DouyinChannelExporter
   ];
 };
