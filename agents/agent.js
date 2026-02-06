@@ -21,8 +21,7 @@ export class Agent {
 
       case 'App.workflowAccepted':
 
-        const workflow = e.detail;
-        this.startWorkflow(workflow);
+        this.startWorkflow(e.detail);
 
         break;
 
@@ -34,8 +33,7 @@ export class Agent {
 
       case 'Bug.conversationIntercepted':
 
-        const conversation = e.detail;
-        this.examineConversation(conversation);
+        this.examineConversation(e.detail);
 
         break;
 
@@ -49,17 +47,17 @@ export class Agent {
     }
   }
 
-  async examineConversation(conversation) {
+  examineConversation(conversation) {
 
     throw new Error('Not implemented');
   }
 
-  async startWorkflow(workflow) {
+  startWorkflow(workflow) {
 
     throw new Error('Not implemented');
   }
 
-  async stopWorkflow() {
+  stopWorkflow() {
 
     throw new Error('Not implemented');
   }
