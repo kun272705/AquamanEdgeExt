@@ -40,6 +40,7 @@ export class Action {
     };
     chrome.action.setIcon({ 'path': path });
 
-    chrome.action.setTitle({ 'title': chrome.i18n.getMessage(`ext_is_${this.state}`, settings.extName) });
+    const title = chrome.i18n.getMessage(`ext_is_${this.state}`, settings.extName);
+    chrome.action.setTitle({ 'title': title });
   }
 };
