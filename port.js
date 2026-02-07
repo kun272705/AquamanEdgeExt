@@ -30,8 +30,7 @@ export class Port {
     switch (e.type) {
 
       case 'Agent.workflowQueued':
-      case 'Agent.workflowCompleted':
-      case 'Agent.workflowStuck':
+      case 'Agent.workflowProgressed':
 
         try {
           this.port.postMessage(e);

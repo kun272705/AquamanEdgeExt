@@ -28,8 +28,7 @@ export class Leader {
     switch (e.type) {
 
       case 'Agent.workflowQueued':
-      case 'Agent.workflowCompleted':
-      case 'Agent.workflowStuck':
+      case 'Agent.workflowProgressed':
 
         this.ext.handleEvent(e);
 
