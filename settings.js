@@ -1,7 +1,7 @@
 
 export class settings {
 
-  static extName = 'Aquaman Edge Ext';
+  static extName = 'Aquaman';
 
   static nativeMessagingHostName = 'com.kun272705.aquaman';
 
