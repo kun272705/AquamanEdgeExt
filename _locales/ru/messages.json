@@ -1,10 +1,22 @@
 {
-  "_is_on": {
-    "message": " включен",
-    "description": ""
+  "ext_is_on": {
+    "message": "$ext$ включен",
+    "description": "",
+    "placeholders": {
+      "ext": {
+        "content": "$1",
+        "example": ""
+      }
+    }
   },
-  "_is_off": {
-    "message": " отключен",
-    "description": ""
+  "ext_is_off": {
+    "message": "$ext$ отключен",
+    "description": "",
+    "placeholders": {
+      "ext": {
+        "content": "$1",
+        "example": ""
+      }
+    }
   }
 }

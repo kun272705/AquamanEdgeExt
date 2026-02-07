@@ -1,10 +1,22 @@
 {
-  "_is_on": {
-    "message": " est activé",
-    "description": ""
+  "ext_is_on": {
+    "message": "$ext$ est activé",
+    "description": "",
+    "placeholders": {
+      "ext": {
+        "content": "$1",
+        "example": ""
+      }
+    }
   },
-  "_is_off": {
-    "message": " est désactivé",
-    "description": ""
+  "ext_is_off": {
+    "message": "$ext$ est désactivé",
+    "description": "",
+    "placeholders": {
+      "ext": {
+        "content": "$1",
+        "example": ""
+      }
+    }
   }
 }

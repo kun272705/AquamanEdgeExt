@@ -1,10 +1,22 @@
 {
-  "_is_on": {
-    "message": " 已开启",
-    "description": ""
+  "ext_is_on": {
+    "message": "$ext$ 已开启",
+    "description": "",
+    "placeholders": {
+      "ext": {
+        "content": "$1",
+        "example": ""
+      }
+    }
   },
-  "_is_off": {
-    "message": " 已关闭",
-    "description": ""
+  "ext_is_off": {
+    "message": "$ext$ 已关闭",
+    "description": "",
+    "placeholders": {
+      "ext": {
+        "content": "$1",
+        "example": ""
+      }
+    }
   }
 }
