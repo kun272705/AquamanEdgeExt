@@ -25,7 +25,7 @@ export class Port {
 
   handleEvent(e) {
 
-    if (!(this.state === 'on' || e.type === 'App.pong')) return;
+    if (!(this.state === 'on' || e.type === 'NMH.pong')) return;
 
     switch (e.type) {
 
@@ -40,7 +40,7 @@ export class Port {
 
         break;
 
-      case 'App.pong':
+      case 'NMH.pong':
 
         const state = e.detail.state;
         if (!(state === 'on' || state === 'off')) return;
@@ -48,8 +48,8 @@ export class Port {
 
         break;
 
-      case 'App.workflowAccepted':
-      case 'App.workflowCanceled':
+      case 'Bar.workflowAccepted':
+      case 'Bar.workflowCanceled':
 
         this.ext.handelEvent(e);
 
@@ -85,7 +85,9 @@ export class Port {
   syncState(state) {
 
     if (this.state !== state) {
+
       this.state = state;
+
       this.ext.handleEvent({ 'type': 'Port.stateChanged', 'detail': { 'state': this.state } });
     }
   }
