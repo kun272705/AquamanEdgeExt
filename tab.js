@@ -51,7 +51,7 @@ export class Tab {
 
     const targets = await chrome.debugger.getTargets();
     
-    return targets.find(item => item.attached === true && item.tabId === tabId) !== undefined;
+    return targets.some(item => item.attached === true && item.tabId === tabId) === true;
   }
     
   async _attachTarget(tabId) {
