@@ -70,7 +70,6 @@ export class Port {
   _ping() {
 
     try {
-
       this._port.postMessage({ 'type': 'Port.ping' });
     } catch (error) {
 
