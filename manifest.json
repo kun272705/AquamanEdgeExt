@@ -1,7 +1,7 @@
 
 {
   "manifest_version": 3,
-  "name": "Aquaman Edge Ext",
+  "name": "Aquaman",
   "version": "1.0.0",
   "description": "This is the Aquaman Edge Ext.",
   "icons": {
@@ -21,6 +21,7 @@
     "type": "module"
   },
   "default_locale": "en_US",
+  "homepage_url": "https://aquaman.kun272705.com/",
   "host_permissions": [
     "http://*/*",
     "https://*/*"
