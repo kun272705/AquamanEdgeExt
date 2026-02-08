@@ -84,11 +84,10 @@ export class Port {
 
   _syncState(state) {
 
-    if (this._state !== state) {
+    if (this._state === state) return;
 
-      this._state = state;
+    this._state = state;
 
-      this._ext.handleEvent({ 'type': 'Port.stateChanged', 'detail': { 'state': this._state } });
-    }
+    this._ext.handleEvent({ 'type': 'Port.stateChanged', 'detail': { 'state': this._state } });
   }
 };
