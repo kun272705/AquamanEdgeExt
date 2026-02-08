@@ -1,9 +1,9 @@
 
 export class settings {
 
-  static extName = 'Aquaman';
+  static extName = 'Aquaman Edge Ext';
 
-  static nativeMessagingHostName = 'com.kun272705.aquaman';
+  static nativeMessagingHostName = 'com.kun272705.aquaman.nmh';
 
   static CDPVersion = '1.3';
       
