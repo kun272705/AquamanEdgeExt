@@ -1,13 +1,13 @@
 
 export class Bug {
 
-  ext;
+  _ext;
 
-  state;
+  _state;
 
   constructor(ext) {
 
-    this.ext = ext;
+    this._ext = ext;
   }
 
   enjoy() {
@@ -17,25 +17,25 @@ export class Bug {
 
   handleEvent(e) {
 
-    if (!(this.state === 'on' || e.type === 'Port.stateChanged')) return;
+    if (!(this._state === 'on' || e.type === 'Port.stateChanged')) return;
 
     switch (e.type) {
     
       case 'Fetch.requestPaused':
 
-        this.interceptConversation(e.detail.source, e.detail.args);
+        this._interceptConversation(e.detail.source, e.detail.args);
 
         break;
 
       case 'Port.stateChanged':
 
-        this.state = e.detail.state;
+        this._state = e.detail.state;
 
         break;
     }
   }
 
-  async interceptConversation(source, args) {
+  async _interceptConversation(source, args) {
 
     const tabId = source.tabId;
     const requestId = args.requestId;
@@ -43,7 +43,7 @@ export class Bug {
     try {
       const tab = await chrome.tabs.get(tabId);
       const responseBody = await chrome.debugger.sendCommand({ 'tabId': tabId }, 'Fetch.getResponseBody', { 'requestId': requestId });
-      this.ext.handleEvent({ 'type': 'Bug.conversationIntercepted', 'detail': { 'tab': tab, ...args, 'responseBody': responseBody } });
+      this._ext.handleEvent({ 'type': 'Bug.conversationIntercepted', 'detail': { 'tab': tab, ...args, 'responseBody': responseBody } });
     } catch (error) {
       console.warn(Date.now() / 1000, error);
     }

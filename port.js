@@ -3,29 +3,29 @@ import { settings } from './settings.js';
 
 export class Port {
 
-  ext;
+  _ext;
 
-  state;
+  _state;
 
-  port;
+  _port;
 
   constructor(ext) {
     
-    this.ext = ext;
+    this._ext = ext;
   }
   
   enjoy() {
 
-    this.connect();
+    this._connect();
 
-    setInterval(() => this.ping(), 3000);
+    setInterval(() => this._ping(), 3000);
 
-    this.port.onMessage.addListener(e => this.handleEvent(e));
+    this._port.onMessage.addListener(e => this.handleEvent(e));
   }
 
   handleEvent(e) {
 
-    if (!(this.state === 'on' || e.type === 'NMH.pong')) return;
+    if (!(this._state === 'on' || e.type === 'NMH.pong')) return;
 
     switch (e.type) {
 
@@ -33,7 +33,7 @@ export class Port {
       case 'Agent.workflowProgressed':
 
         try {
-          this.port.postMessage(e);
+          this._port.postMessage(e);
         } catch (error) {
           console.warn(Date.now() / 1000, error);
         }
@@ -44,51 +44,51 @@ export class Port {
 
         const state = e.detail.state;
         if (!(state === 'on' || state === 'off')) return;
-        this.syncState(state);
+        this._syncState(state);
 
         break;
 
       case 'Bar.workflowAccepted':
       case 'Bar.workflowCanceled':
 
-        this.ext.handelEvent(e);
+        this._ext.handelEvent(e);
 
         break;
     }
   }
 
-  connect() {
+  _connect() {
     
-    this.port = chrome.runtime.connectNative(settings.nativeMessagingHostName);
+    this._port = chrome.runtime.connectNative(settings.nativeMessagingHostName);
 
-    this.port.onDisconnect.addListener(() => {
+    this._port.onDisconnect.addListener(() => {
       const error = chrome.runtime.lastError;
       if (error !== undefined) console.warn(Date.now() / 1000, error);
     });
   }
 
-  ping() {
+  _ping() {
 
     try {
 
-      this.port.postMessage({ 'type': 'Port.ping' });
+      this._port.postMessage({ 'type': 'Port.ping' });
     } catch (error) {
 
       console.warn(Date.now() / 1000, error);
 
-      this.syncState('off');
+      this._syncState('off');
 
-      this.connect();
+      this._connect();
     }
   }
 
-  syncState(state) {
+  _syncState(state) {
 
-    if (this.state !== state) {
+    if (this._state !== state) {
 
-      this.state = state;
+      this._state = state;
 
-      this.ext.handleEvent({ 'type': 'Port.stateChanged', 'detail': { 'state': this.state } });
+      this._ext.handleEvent({ 'type': 'Port.stateChanged', 'detail': { 'state': this._state } });
     }
   }
 };

@@ -3,13 +3,13 @@ import { settings } from './settings.js';
 
 export class Action {
 
-  ext;
+  _ext;
 
-  state;
+  _state;
 
   constructor(ext) {
 
-    this.ext = ext;
+    this._ext = ext;
   }
 
   enjoy() {
@@ -17,30 +17,30 @@ export class Action {
 
   handleEvent(e) {
 
-    if (!(this.state === 'on' || e.type === 'Port.stateChanged')) return;
+    if (!(this._state === 'on' || e.type === 'Port.stateChanged')) return;
 
     switch (e.type) {
 
       case 'Port.stateChanged':
 
-        this.syncState(e.detail.state);
+        this._syncState(e.detail.state);
 
         break;
     }
   }
 
-  syncState(state) {
+  _syncState(state) {
 
-    this.state = state;
+    this._state = state;
 
     const path = {
-      '16': `./icons/icon16-${this.state}.png`,
-      '48': `./icons/icon48-${this.state}.png`,
-      '128': `./icons/icon128-${this.state}.png`
+      '16': `./icons/icon16-${this._state}.png`,
+      '48': `./icons/icon48-${this._state}.png`,
+      '128': `./icons/icon128-${this._state}.png`
     };
     chrome.action.setIcon({ 'path': path });
 
-    const title = chrome.i18n.getMessage(`ext_is_${this.state}`, settings.extName);
+    const title = chrome.i18n.getMessage(`ext_is_${this._state}`, settings.extName);
     chrome.action.setTitle({ 'title': title });
   }
 };

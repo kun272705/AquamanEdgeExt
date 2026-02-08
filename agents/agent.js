@@ -1,13 +1,13 @@
 
 export class Agent {
 
-  leader;
+  _leader;
 
-  state;
+  _state;
 
   constructor(leader) {
 
-    this.leader = leader;
+    this._leader = leader;
   }
 
   enjoy() {
@@ -15,49 +15,49 @@ export class Agent {
 
   handleEvent(e) {
 
-    if (!(this.state === 'on' || e.type === 'Port.stateChanged')) return;
+    if (!(this._state === 'on' || e.type === 'Port.stateChanged')) return;
 
     switch (e.type) {
 
       case 'Bar.workflowAccepted':
 
-        this.startWorkflow(e.detail);
+        this._startWorkflow(e.detail);
 
         break;
 
       case 'Bar.workflowCanceled':
 
-        this.stopWorkflow();
+        this._stopWorkflow();
 
         break;
 
       case 'Bug.conversationIntercepted':
 
-        this.examineConversation(e.detail);
+        this._examineConversation(e.detail);
 
         break;
 
       case 'Port.stateChanged':
 
-        this.state = e.detail.state;
+        this._state = e.detail.state;
 
-        if (this.state === 'off') this.stopWorkflow();
+        if (this._state === 'off') this._stopWorkflow();
 
         break;
     }
   }
 
-  examineConversation(conversation) {
+  _examineConversation(_conversation) {
 
     throw new Error('Not implemented');
   }
 
-  startWorkflow(workflow) {
+  _startWorkflow(_workflow) {
 
     throw new Error('Not implemented');
   }
 
-  stopWorkflow() {
+  _stopWorkflow() {
 
     throw new Error('Not implemented');
   }

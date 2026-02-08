@@ -3,13 +3,13 @@ import { settings } from './settings.js';
 
 export class Tab {
 
-  ext;
+  _ext;
 
-  state;
+  _state;
 
   constructor(ext) {
     
-    this.ext = ext;
+    this._ext = ext;
   }
 
   enjoy() {
@@ -21,42 +21,42 @@ export class Tab {
 
   handleEvent(e) {
 
-    if (!(this.state === 'on' || e.type === 'Port.stateChanged')) return;
+    if (!(this._state === 'on' || e.type === 'Port.stateChanged')) return;
     
     switch (e.type) {
 
       case 'Port.stateChanged':
 
-        this.state = e.detail.state;
+        this._state = e.detail.state;
 
-        if (this.state === 'off') this.detachTargets();
+        if (this._state === 'off') this._detachTargets();
 
         break;
 
       case 'Tab.tabUpdated':
 
-        this.attachTarget(e.detail.tabId);
+        this._attachTarget(e.detail.tabId);
 
         break;
 
       case 'Tab.targetDetached':
 
-        this.attachTarget(e.detail.tabId);
+        this._attachTarget(e.detail.tabId);
 
         break;
     }
   }
 
-  async isAttached(tabId) {
+  async _isAttached(tabId) {
 
     const targets = await chrome.debugger.getTargets();
     
     return targets.find(item => item.attached === true && item.tabId === tabId) !== undefined;
   }
     
-  async attachTarget(tabId) {
+  async _attachTarget(tabId) {
 
-    if ((await this.isAttached(tabId)) === true) return;
+    if ((await this._isAttached(tabId)) === true) return;
 
     try {
       await chrome.debugger.attach({ 'tabId': tabId }, settings.CDPVersion);
@@ -66,7 +66,7 @@ export class Tab {
     }
   }
 
-  async detachTarget(tabId) {
+  async _detachTarget(tabId) {
 
     try {
       await chrome.debugger.detach({ 'tabId': tabId });
@@ -75,12 +75,12 @@ export class Tab {
     }
   }
 
-  async detachTargets() {
+  async _detachTargets() {
 
     const targets = await chrome.debugger.getTargets();
 
     targets
       .filter(item => item.attached === true && item.tabId !== undefined)
-      .forEach(item => this.detachTarget(item.tabId));
+      .forEach(item => this._detachTarget(item.tabId));
   }
 };

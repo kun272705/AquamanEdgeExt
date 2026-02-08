@@ -7,81 +7,81 @@ import { Port } from './port.js';
 
 export class Ext {
 
-  action;
+  _action;
 
-  tab;
+  _tab;
 
-  bug;
+  _bug;
 
-  leader;
+  _leader;
 
-  port;
+  _port;
 
-  state;
+  _state;
 
   constructor() {
 
-    this.action = new Action(this);
+    this._action = new Action(this);
 
-    this.tab = new Tab(this);
+    this._tab = new Tab(this);
 
-    this.bug = new Bug(this);
+    this._bug = new Bug(this);
 
-    this.leader = new Leader(this);
+    this._leader = new Leader(this);
 
-    this.port = new Port(this);
+    this._port = new Port(this);
   }
 
   enjoy() {
 
-    this.action.enjoy();
+    this._action.enjoy();
 
-    this.tab.enjoy();
+    this._tab.enjoy();
 
-    this.bug.enjoy();
+    this._bug.enjoy();
 
-    this.leader.enjoy();
+    this._leader.enjoy();
 
-    this.port.enjoy();
+    this._port.enjoy();
   }
 
   handleEvent(e) {
 
-    if (!(this.state === 'on' || e.type === 'Port.stateChanged')) return;
+    if (!(this._state === 'on' || e.type === 'Port.stateChanged')) return;
 
     switch (e.type) {
 
       case 'Agent.workflowQueued':
       case 'Agent.workflowProgressed':
 
-        this.port.handleEvent(e);
+        this._port.handleEvent(e);
 
         break;
 
       case 'Bar.workflowAccepted':
       case 'Bar.workflowCanceled':
 
-        this.leader.handleEvent(e);
+        this._leader.handleEvent(e);
 
         break;
 
       case 'Bug.conversationIntercepted':
 
-        this.leader.handleEvent(e);
+        this._leader.handleEvent(e);
 
         break;
 
       case 'Port.stateChanged':
 
-        this.state = e.detail.state;
+        this._state = e.detail.state;
 
-        this.action.handleEvent(e);
+        this._action.handleEvent(e);
 
-        this.tab.handleEvent(e);
+        this._tab.handleEvent(e);
 
-        this.bug.handleEvent(e);
+        this._bug.handleEvent(e);
 
-        this.leader.handleEvent(e);
+        this._leader.handleEvent(e);
 
         break;
     }
