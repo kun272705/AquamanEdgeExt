@@ -42,7 +42,7 @@ export class Port {
 
       case 'NMH.pong':
 
-        const state = e.detail.state;
+        const { state } = e.detail;
         if (!(state === 'on' || state === 'off')) return;
         this._syncState(state);
 

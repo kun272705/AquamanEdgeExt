@@ -37,8 +37,8 @@ export class Bug {
 
   async _interceptConversation(source, args) {
 
-    const tabId = source.tabId;
-    const requestId = args.requestId;
+    const { tabId } = source;
+    const { requestId } = args;
 
     try {
       const tab = await chrome.tabs.get(tabId);
