@@ -19,7 +19,6 @@ export class Port {
     this._connect();
 
     this._ping();
-
     setInterval(() => this._ping(), 3000);
 
     this._port.onMessage.addListener(e => this.handleEvent(e));
