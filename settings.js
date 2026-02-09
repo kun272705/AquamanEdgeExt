@@ -4,5 +4,5 @@ export const settings = {
   'CDPVersion': '1.3',
   'registeredAgents': [
   ],
-  'PortAddress': 'ws://[::1]/'
+  'PortAddress': 'ws://[::1]:80/'
 };
