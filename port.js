@@ -60,16 +60,17 @@ export class Port {
 
     this._port = new WebSocket(settings.PortAddress);
 
+    this._port.addEventListener('open', e => {
+
+      console.info(Date.now() / 1000, e);
+      this._syncState('on');
+    });
+
     this._port.addEventListener('close', e => {
 
       console.warn(Date.now() / 1000, e);
       this._syncState('off');
       setTimeout(() => this._connect(), 3000);
-    });
-
-    this._port.addEventListener('open', e => {
-
-      this._syncState('on');
     });
   }
 
