@@ -72,11 +72,6 @@ export class Port {
       this._syncState('off');
       setTimeout(() => this._connect(), 3000);
     });
-
-    this._port.addEventListener('error', e => {
-
-      console.warn(Date.now() / 1000, e);
-    });
   }
 
   _syncState(state) {
