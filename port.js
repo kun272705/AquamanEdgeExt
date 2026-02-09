@@ -18,15 +18,20 @@ export class Port {
 
     this._connect();
 
-    this._ping();
-    setInterval(() => this._ping(), 3000);
+    this._port.addEventListener('message', e => {
 
-    this._port.onMessage.addListener(e => this.handleEvent(e));
+      try {
+        const data = JSON.parse(e.data);
+        this.handleEvent(data);
+      } catch (error) {
+        console.warn(Date.now() / 1000, error);
+      }
+    });
   }
 
   handleEvent(e) {
 
-    if (!(this._state === 'on' || e.type === 'NMH.pong')) return;
+    if (this._state !== 'on') return;
 
     switch (e.type) {
 
@@ -34,18 +39,11 @@ export class Port {
       case 'Agent.workflowProgressed':
 
         try {
-          this._port.postMessage(e);
+          const data = JSON.stringify(e);
+          this._port.send(data);
         } catch (error) {
           console.warn(Date.now() / 1000, error);
         }
-
-        break;
-
-      case 'NMH.pong':
-
-        const { state } = e.detail;
-        if (!(state === 'on' || state === 'off')) return;
-        this._syncState(state);
 
         break;
 
@@ -59,35 +57,28 @@ export class Port {
   }
 
   _connect() {
-    
-    this._port = chrome.runtime.connectNative(settings.nativeMessagingHostName);
 
-    this._port.onDisconnect.addListener(() => {
-      const error = chrome.runtime.lastError;
-      if (error !== undefined) console.warn(Date.now() / 1000, error);
-    });
-  }
+    this._port = new WebSocket(settings.PortAddress);
 
-  _ping() {
+    this._port.addEventListener('close', e => {
 
-    try {
-      this._port.postMessage({ 'type': 'Port.ping' });
-    } catch (error) {
-
-      console.warn(Date.now() / 1000, error);
-
+      console.warn(Date.now() / 1000, e);
       this._syncState('off');
+      setTimeout(() => this._connect(), 3000);
+    });
 
-      this._connect();
-    }
+    this._port.addEventListener('open', e => {
+
+      this._syncState('on');
+    });
   }
 
   _syncState(state) {
 
-    if (this._state === state) return;
+    if (this._state !== state) {
 
-    this._state = state;
-
-    this._ext.handleEvent({ 'type': 'Port.stateChanged', 'detail': { 'state': this._state } });
+      this._state = state;
+      this._ext.handleEvent({ 'type': 'Port.stateChanged', 'detail': { 'state': this._state } });
+    }
   }
 };

@@ -50,7 +50,6 @@ export class Leader {
       case 'Port.stateChanged':
 
         this._state = e.detail.state;
-
         this._agents.forEach(item => item.handleEvent(e));
 
         break;

@@ -26,12 +26,10 @@
     "http://*/*",
     "https://*/*"
   ],
+  "minimum_chrome_version": "116",
   "permissions": [
-    "activeTab",
-    "storage",
     "tabs",
     "debugger",
-    "nativeMessaging",
     "scripting",
     "downloads"
   ]
