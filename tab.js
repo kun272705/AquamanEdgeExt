@@ -16,15 +16,15 @@ export class Tab {
 
   enjoy() {
 
-    chrome.tabs.onUpdated.addListener(tabId => this.handleEvent({ 'publisher': 'Tab', 'type': 'tabUpdated', 'detail': { 'tabId': tabId } }));
-    chrome.debugger.onDetach.addListener(target => this.handleEvent({ 'publisher': 'Tab', 'type': 'targetDetached', 'detail': { 'tabId': target.tabId } }));
+    chrome.tabs.onUpdated.addListener(tabId => this.handleEvent({ 'sender': 'Tab', 'type': 'tabUpdated', 'detail': { 'tabId': tabId } }));
+    chrome.debugger.onDetach.addListener(target => this.handleEvent({ 'sender': 'Tab', 'type': 'targetDetached', 'detail': { 'tabId': target.tabId } }));
   }
 
   handleEvent(e) {
 
-    if (!(this._state === 'on' || `${e.publisher}.${e.type}` === 'Port.stateChanged')) return;
+    if (!(this._state === 'on' || `${e.sender}.${e.type}` === 'Port.stateChanged')) return;
 
-    switch (`${e.publisher}.${e.type}`) {
+    switch (`${e.sender}.${e.type}`) {
     
       case 'Port.stateChanged':
 
