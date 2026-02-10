@@ -49,8 +49,8 @@ export class Port {
 
         break;
 
-      case 'User.workflowAccepted':
-      case 'User.workflowCanceled':
+      case 'Console.workflowAccepted':
+      case 'Console.workflowCanceled':
 
         this._ext.handelEvent(e);
 

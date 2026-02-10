@@ -11,7 +11,7 @@ export class Action {
 
     this._ext = ext;
 
-    this._extName = 'Aquaman';
+    this._extName = 'Aquaman Edge Ext';
   }
 
   enjoy() {

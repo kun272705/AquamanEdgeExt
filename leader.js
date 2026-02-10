@@ -5,19 +5,19 @@ export class Leader {
 
   _state;
 
-  _agents;
+  _registeredAgents;
 
   constructor(ext) {
     
     this._ext = ext;
 
-    this._agents = [
+    this._registeredAgents = [
     ];
   }
 
   enjoy() {
 
-    this._agents.forEach(item => item.enjoy());
+    this._registeredAgents.forEach(item => item.enjoy());
   }
 
   handleEvent(e) {
@@ -33,23 +33,23 @@ export class Leader {
 
         break;
 
-      case 'User.workflowAccepted':
-      case 'User.workflowCanceled':
+      case 'Console.workflowAccepted':
+      case 'Console.workflowCanceled':
 
-        this._agents.filter(item => item.constructor.name === e.detail.agent).forEach(item => item.handleEvent(e));
+        this._registeredAgents.filter(item => item.constructor.name === e.detail.agent).forEach(item => item.handleEvent(e));
 
         break;
 
       case 'Bug.conversationIntercepted':
 
-        this._agents.forEach(item => item.handleEvent(e));
+        this._registeredAgents.forEach(item => item.handleEvent(e));
 
         break;
 
       case 'Port.stateChanged':
 
         this._state = e.detail.state;
-        this._agents.forEach(item => item.handleEvent(e));
+        this._registeredAgents.forEach(item => item.handleEvent(e));
 
         break;
     }
