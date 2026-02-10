@@ -13,7 +13,7 @@ export class Port {
     
     this._ext = ext;
 
-    this._remoteAddress = '[::1]:80';
+    this._remoteAddress = 'ws://[::1]:80/';
   }
   
   enjoy() {
