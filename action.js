@@ -5,9 +5,13 @@ export class Action {
 
   _state;
 
+  _extName;
+
   constructor(ext) {
 
     this._ext = ext;
+
+    this._extName = 'Aquaman';
   }
 
   enjoy() {
@@ -38,7 +42,7 @@ export class Action {
     };
     chrome.action.setIcon({ 'path': path });
 
-    const title = chrome.i18n.getMessage(`ext_is_${this._state}`, 'Aquaman');
+    const title = chrome.i18n.getMessage(`ext_is_${this._state}`, this._extName);
     chrome.action.setTitle({ 'title': title });
   }
 };

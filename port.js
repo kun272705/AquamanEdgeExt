@@ -5,11 +5,15 @@ export class Port {
 
   _state;
 
+  _remoteAddress;
+
   _port;
 
   constructor(ext) {
     
     this._ext = ext;
+
+    this._remoteAddress = '[::1]:80';
   }
   
   enjoy() {
@@ -56,7 +60,7 @@ export class Port {
 
   _connect() {
 
-    this._port = new WebSocket('ws://[::1]:80/');
+    this._port = new WebSocket(this._remoteAddress);
 
     this._port.addEventListener('open', e => {
 
