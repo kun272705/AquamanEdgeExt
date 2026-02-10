@@ -1,6 +1,4 @@
 
-import { settings } from './settings.js';
-
 export class Tab {
 
   _ext;
@@ -56,7 +54,7 @@ export class Tab {
     if ((await this._isAttached(tabId)) === true) return;
 
     try {
-      await chrome.debugger.attach({ 'tabId': tabId }, settings.CDPVersion);
+      await chrome.debugger.attach({ 'tabId': tabId }, '1.3');
       await chrome.debugger.sendCommand({ 'tabId': tabId }, 'Fetch.enable', { 'patterns': [{ 'requestStage': 'Response' }] });
     } catch (error) {
       console.warn(Date.now() / 1000, error);

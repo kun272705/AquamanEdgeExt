@@ -58,8 +58,8 @@ export class Ext {
 
         break;
 
-      case 'Bar.workflowAccepted':
-      case 'Bar.workflowCanceled':
+      case 'User.workflowAccepted':
+      case 'User.workflowCanceled':
 
         this._leader.handleEvent(e);
 

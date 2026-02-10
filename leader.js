@@ -1,6 +1,4 @@
 
-import { settings } from './settings.js';
-
 export class Leader {
 
   _ext;
@@ -13,7 +11,8 @@ export class Leader {
     
     this._ext = ext;
 
-    this._agents = settings.registeredAgents.map(item => new item(this));
+    this._agents = [
+    ];
   }
 
   enjoy() {
@@ -34,8 +33,8 @@ export class Leader {
 
         break;
 
-      case 'Bar.workflowAccepted':
-      case 'Bar.workflowCanceled':
+      case 'User.workflowAccepted':
+      case 'User.workflowCanceled':
 
         this._agents.filter(item => item.constructor.name === e.detail.agent).forEach(item => item.handleEvent(e));
 

@@ -1,6 +1,4 @@
 
-import { settings } from './settings.js';
-
 export class Action {
 
   _ext;
@@ -40,7 +38,7 @@ export class Action {
     };
     chrome.action.setIcon({ 'path': path });
 
-    const title = chrome.i18n.getMessage(`ext_is_${this._state}`, settings.extName);
+    const title = chrome.i18n.getMessage(`ext_is_${this._state}`, 'Aquaman');
     chrome.action.setTitle({ 'title': title });
   }
 };

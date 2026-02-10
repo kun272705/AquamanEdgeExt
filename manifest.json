@@ -21,15 +21,12 @@
     "type": "module"
   },
   "default_locale": "en_US",
-  "homepage_url": "https://aquaman.kun272705.com/",
   "host_permissions": [
     "http://*/*",
     "https://*/*"
   ],
   "minimum_chrome_version": "116",
-  "options_page": "options.html",
   "permissions": [
-    "storage",
     "tabs",
     "debugger",
     "scripting",

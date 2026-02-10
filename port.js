@@ -1,6 +1,4 @@
 
-import { settings } from './settings.js';
-
 export class Port {
 
   _ext;
@@ -47,8 +45,8 @@ export class Port {
 
         break;
 
-      case 'Bar.workflowAccepted':
-      case 'Bar.workflowCanceled':
+      case 'User.workflowAccepted':
+      case 'User.workflowCanceled':
 
         this._ext.handelEvent(e);
 
@@ -58,7 +56,7 @@ export class Port {
 
   _connect() {
 
-    this._port = new WebSocket(settings.PortAddress);
+    this._port = new WebSocket('ws://[::1]:80/');
 
     this._port.addEventListener('open', e => {
 

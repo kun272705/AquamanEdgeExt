@@ -19,13 +19,13 @@ export class Agent {
 
     switch (e.type) {
 
-      case 'Bar.workflowAccepted':
+      case 'User.workflowAccepted':
 
         this._startWorkflow(e.detail);
 
         break;
 
-      case 'Bar.workflowCanceled':
+      case 'User.workflowCanceled':
 
         this._stopWorkflow();
 
