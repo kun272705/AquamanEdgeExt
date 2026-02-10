@@ -21,8 +21,6 @@ export class Bug {
 
     switch (`${e.sender}.${e.type}`) {
 
-    switch (e.type) {
-
       case 'Port.stateChanged':
 
         this._state = e.detail.state;
