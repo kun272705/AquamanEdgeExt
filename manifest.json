@@ -27,7 +27,9 @@
     "https://*/*"
   ],
   "minimum_chrome_version": "116",
+  "options_page": "options.html",
   "permissions": [
+    "storage",
     "tabs",
     "debugger",
     "scripting",
