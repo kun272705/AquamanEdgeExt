@@ -1,23 +1,11 @@
 
 {
-  "ext_is_on": {
-    "message": "$ext$ est activé",
-    "description": "",
-    "placeholders": {
-      "ext": {
-        "content": "$1",
-        "example": ""
-      }
-    }
+  "aquaman_is_on": {
+    "message": "Aquaman est activé",
+    "description": ""
   },
-  "ext_is_off": {
-    "message": "$ext$ est désactivé",
-    "description": "",
-    "placeholders": {
-      "ext": {
-        "content": "$1",
-        "example": ""
-      }
-    }
+  "aquaman_is_off": {
+    "message": "Aquaman est désactivé",
+    "description": ""
   }
 }

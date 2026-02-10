@@ -5,13 +5,9 @@ export class Action {
 
   _state;
 
-  _extName;
-
   constructor(ext) {
 
     this._ext = ext;
-
-    this._extName = 'Aquaman Edge Ext';
   }
 
   enjoy() {
@@ -19,9 +15,9 @@ export class Action {
 
   handleEvent(e) {
 
-    if (!(this._state === 'on' || e.type === 'Port.stateChanged')) return;
+    if (!(this._state === 'on' || `${e.sender}.${e.type}` === 'Port.stateChanged')) return;
 
-    switch (e.type) {
+    switch (`${e.sender}.${e.type}`) {
 
       case 'Port.stateChanged':
 
@@ -42,7 +38,7 @@ export class Action {
     };
     chrome.action.setIcon({ 'path': path });
 
-    const title = chrome.i18n.getMessage(`ext_is_${this._state}`, this._extName);
+    const title = chrome.i18n.getMessage(`aquaman_is_${this._state}`);
     chrome.action.setTitle({ 'title': title });
   }
 };

@@ -12,24 +12,26 @@ export class Bug {
 
   enjoy() {
 
-    chrome.debugger.onEvent.addListener((source, type, args) => this.handleEvent({ 'type': type, 'detail': { 'source': source, 'args': args } }));
+    chrome.debugger.onEvent.addListener((source, type, args) => this.handleEvent({ 'sender': type.split('.')[0], 'type': type.split('.')[1], 'detail': { 'source': source, 'args': args } }));
   }
 
   handleEvent(e) {
 
-    if (!(this._state === 'on' || e.type === 'Port.stateChanged')) return;
+    if (!(this._state === 'on' || `${e.sender}.${e.type}` === 'Port.stateChanged')) return;
+
+    switch (`${e.sender}.${e.type}`) {
 
     switch (e.type) {
-    
-      case 'Fetch.requestPaused':
-
-        this._interceptConversation(e.detail.source, e.detail.args);
-
-        break;
 
       case 'Port.stateChanged':
 
         this._state = e.detail.state;
+
+        break;
+    
+      case 'Fetch.requestPaused':
+
+        this._interceptConversation(e.detail.source, e.detail.args);
 
         break;
     }
@@ -43,7 +45,7 @@ export class Bug {
     try {
       const tab = await chrome.tabs.get(tabId);
       const responseBody = await chrome.debugger.sendCommand({ 'tabId': tabId }, 'Fetch.getResponseBody', { 'requestId': requestId });
-      this._ext.handleEvent({ 'type': 'Bug.conversationIntercepted', 'detail': { 'tab': tab, ...args, 'responseBody': responseBody } });
+      this._ext.handleEvent({ 'sender': 'Bug', 'type': 'conversationIntercepted', 'detail': { 'tab': tab, ...args, 'responseBody': responseBody } });
     } catch (error) {
       console.warn(Date.now() / 1000, error);
     }

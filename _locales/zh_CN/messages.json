@@ -1,23 +1,11 @@
 
 {
-  "ext_is_on": {
-    "message": "$ext$ 已开启",
-    "description": "",
-    "placeholders": {
-      "ext": {
-        "content": "$1",
-        "example": ""
-      }
-    }
+  "aquaman_is_on": {
+    "message": "Aquaman 已开启",
+    "description": ""
   },
-  "ext_is_off": {
-    "message": "$ext$ 已关闭",
-    "description": "",
-    "placeholders": {
-      "ext": {
-        "content": "$1",
-        "example": ""
-      }
-    }
+  "aquaman_is_off": {
+    "message": "Aquaman 已关闭",
+    "description": ""
   }
 }

@@ -47,19 +47,19 @@ export class Ext {
 
   handleEvent(e) {
 
-    if (!(this._state === 'on' || e.type === 'Port.stateChanged')) return;
+    if (!(this._state === 'on' || `${e.sender}.${e.type}` === 'Port.stateChanged')) return;
 
-    switch (e.type) {
+    switch (`${e.sender}.${e.type}`) {
 
-      case 'Agent.workflowQueued':
-      case 'Agent.workflowProgressed':
+      case 'Port.stateChanged':
 
-        this._port.handleEvent(e);
+        this._state = e.detail.state;
 
-        break;
+        this._action.handleEvent(e);
 
-      case 'Console.workflowAccepted':
-      case 'Console.workflowCanceled':
+        this._tab.handleEvent(e);
+
+        this._bug.handleEvent(e);
 
         this._leader.handleEvent(e);
 
@@ -71,15 +71,15 @@ export class Ext {
 
         break;
 
-      case 'Port.stateChanged':
+      case 'Aquaman.workflowQueued':
+      case 'Aquaman.workflowProgressed':
 
-        this._state = e.detail.state;
+        this._port.handleEvent(e);
 
-        this._action.handleEvent(e);
+        break;
 
-        this._tab.handleEvent(e);
-
-        this._bug.handleEvent(e);
+      case 'Host.workflowAccepted':
+      case 'Host.workflowCanceled':
 
         this._leader.handleEvent(e);
 

@@ -15,19 +15,14 @@ export class Agent {
 
   handleEvent(e) {
 
-    if (!(this._state === 'on' || e.type === 'Port.stateChanged')) return;
+    if (!(this._state === 'on' || `${e.sender}.${e.type}` === 'Port.stateChanged')) return;
 
-    switch (e.type) {
+    switch (`${e.sender}.${e.type}`) {
 
-      case 'Console.workflowAccepted':
+      case 'Port.stateChanged':
 
-        this._startWorkflow(e.detail);
-
-        break;
-
-      case 'Console.workflowCanceled':
-
-        this._stopWorkflow();
+        this._state = e.detail.state;
+        if (this._state === 'off') this._stopWorkflow();
 
         break;
 
@@ -37,10 +32,15 @@ export class Agent {
 
         break;
 
-      case 'Port.stateChanged':
+      case 'Host.workflowAccepted':
 
-        this._state = e.detail.state;
-        if (this._state === 'off') this._stopWorkflow();
+        this._startWorkflow(e.detail);
+
+        break;
+
+      case 'Host.workflowCanceled':
+
+        this._stopWorkflow();
 
         break;
     }

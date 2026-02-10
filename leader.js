@@ -22,21 +22,14 @@ export class Leader {
 
   handleEvent(e) {
     
-    if (!(this._state === 'on' || e.type === 'Port.stateChanged')) return;
+    if (!(this._state === 'on' || `${e.sender}.${e.type}` === 'Port.stateChanged')) return;
 
-    switch (e.type) {
+    switch (`${e.sender}.${e.type}`) {
 
-      case 'Agent.workflowQueued':
-      case 'Agent.workflowProgressed':
+      case 'Port.stateChanged':
 
-        this._ext.handleEvent(e);
-
-        break;
-
-      case 'Console.workflowAccepted':
-      case 'Console.workflowCanceled':
-
-        this._registeredAgents.filter(item => item.constructor.name === e.detail.agent).forEach(item => item.handleEvent(e));
+        this._state = e.detail.state;
+        this._registeredAgents.forEach(item => item.handleEvent(e));
 
         break;
 
@@ -46,10 +39,17 @@ export class Leader {
 
         break;
 
-      case 'Port.stateChanged':
+      case 'Aquaman.workflowQueued':
+      case 'Aquaman.workflowProgressed':
 
-        this._state = e.detail.state;
-        this._registeredAgents.forEach(item => item.handleEvent(e));
+        this._ext.handleEvent(e);
+
+        break;
+
+      case 'Host.workflowAccepted':
+      case 'Host.workflowCanceled':
+
+        this._registeredAgents.filter(item => item.constructor.name === e.detail.agent).forEach(item => item.handleEvent(e));
 
         break;
     }

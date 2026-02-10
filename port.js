@@ -35,10 +35,10 @@ export class Port {
 
     if (this._state !== 'on') return;
 
-    switch (e.type) {
+    switch (`${e.sender}.${e.type}`) {
 
-      case 'Agent.workflowQueued':
-      case 'Agent.workflowProgressed':
+      case 'Aquaman.workflowQueued':
+      case 'Aquaman.workflowProgressed':
 
         try {
           const data = JSON.stringify(e);
@@ -49,8 +49,8 @@ export class Port {
 
         break;
 
-      case 'Console.workflowAccepted':
-      case 'Console.workflowCanceled':
+      case 'Host.workflowAccepted':
+      case 'Host.workflowCanceled':
 
         this._ext.handelEvent(e);
 
@@ -81,7 +81,7 @@ export class Port {
     if (this._state !== state) {
 
       this._state = state;
-      this._ext.handleEvent({ 'type': 'Port.stateChanged', 'detail': { 'state': this._state } });
+      this._ext.handleEvent({ 'sender': 'Port', 'type': 'stateChanged', 'detail': { 'state': this._state } });
     }
   }
 };
