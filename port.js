@@ -37,8 +37,8 @@ export class Port {
 
     switch (`${e.sender}.${e.type}`) {
 
-      case 'Aquaman.workflowQueued':
-      case 'Aquaman.workflowProgressed':
+      case 'AquamanEdgeExt.workflowQueued':
+      case 'AquamanEdgeExt.workflowProgressed':
 
         try {
           const data = JSON.stringify(e);
@@ -49,8 +49,8 @@ export class Port {
 
         break;
 
-      case 'Host.workflowApproved':
-      case 'Host.workflowCanceled':
+      case 'Aquaman.workflowApproved':
+      case 'Aquaman.workflowCanceled':
 
         this._ext.handelEvent(e);
 

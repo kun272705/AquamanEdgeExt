@@ -1,9 +1,9 @@
 
 {
   "manifest_version": 3,
-  "name": "Aquaman Edge Ext",
+  "name": "AquamanEdgeExt",
   "version": "1.0.0",
-  "description": "This is the Aquaman Edge Ext.",
+  "description": "This is the AquamanEdgeExt.",
   "icons": {
     "16": "./icons/icon16.png",
     "48": "./icons/icon48.png",

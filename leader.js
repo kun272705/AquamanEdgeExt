@@ -39,15 +39,15 @@ export class Leader {
 
         break;
 
-      case 'Aquaman.workflowQueued':
-      case 'Aquaman.workflowProgressed':
+      case 'AquamanEdgeExt.workflowQueued':
+      case 'AquamanEdgeExt.workflowProgressed':
 
         this._ext.handleEvent(e);
 
         break;
 
-      case 'Host.workflowApproved':
-      case 'Host.workflowCanceled':
+      case 'Aquaman.workflowApproved':
+      case 'Aquaman.workflowCanceled':
 
         this._registeredAgents.filter(item => item.constructor.name === e.detail.agent).forEach(item => item.handleEvent(e));
 

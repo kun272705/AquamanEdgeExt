@@ -71,15 +71,15 @@ export class Ext {
 
         break;
 
-      case 'Aquaman.workflowQueued':
-      case 'Aquaman.workflowProgressed':
+      case 'AquamanEdgeExt.workflowQueued':
+      case 'AquamanEdgeExt.workflowProgressed':
 
         this._port.handleEvent(e);
 
         break;
 
-      case 'Host.workflowApproved':
-      case 'Host.workflowCanceled':
+      case 'Aquaman.workflowApproved':
+      case 'Aquaman.workflowCanceled':
 
         this._leader.handleEvent(e);
 
