@@ -22,9 +22,9 @@ export class Leader {
 
   handleEvent(e) {
     
-    if (!(this._state === 'on' || `${e.sender}.${e.type}` === 'Port.stateChanged')) return;
+    if (!(this._state === 'on' || `${e.publisher}.${e.type}` === 'Port.stateChanged')) return;
 
-    switch (`${e.sender}.${e.type}`) {
+    switch (`${e.publisher}.${e.type}`) {
 
       case 'Port.stateChanged':
 
