@@ -46,8 +46,8 @@ export class Leader {
 
         break;
 
-      case 'Aquawoman.workflowAccepted':
-      case 'Aquawoman.workflowCanceled':
+      case 'Host.workflowAccepted':
+      case 'Host.workflowCanceled':
 
         this._registeredAgents.filter(item => item.constructor.name === e.detail.agent).forEach(item => item.handleEvent(e));
 
