@@ -32,7 +32,7 @@ export class Agent {
 
         break;
 
-      case 'Host.workflowAccepted':
+      case 'Host.workflowApproved':
 
         this._startWorkflow(e.detail);
 

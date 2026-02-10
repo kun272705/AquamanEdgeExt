@@ -49,7 +49,7 @@ export class Port {
 
         break;
 
-      case 'Host.workflowAccepted':
+      case 'Host.workflowApproved':
       case 'Host.workflowCanceled':
 
         this._ext.handelEvent(e);
