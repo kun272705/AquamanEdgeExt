@@ -46,8 +46,8 @@ export class Leader {
 
         break;
 
-      case 'Aquaman.workflowApproved':
-      case 'Aquaman.workflowCanceled':
+      case 'Aquaman.executeWorkflow':
+      case 'Aquaman.cancelWorkflow':
 
         this._registeredAgents.filter(item => item.constructor.name === e.detail.agent).forEach(item => item.handleEvent(e));
 

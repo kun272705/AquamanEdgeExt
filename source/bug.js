@@ -12,7 +12,7 @@ export class Bug {
 
   enjoy() {
 
-    chrome.debugger.onEvent.addListener((source, type, args) => this.handleEvent({ 'sender': type.split('.')[0], 'type': type.split('.')[1], 'detail': { 'source': source, 'args': args } }));
+    chrome.debugger.onEvent.addListener((source, type, args) => this.handleEvent({ 'sender': '', 'type': type, 'detail': { 'source': source, 'args': args } }));
   }
 
   handleEvent(e) {

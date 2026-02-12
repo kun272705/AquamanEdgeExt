@@ -78,8 +78,8 @@ export class Ext {
 
         break;
 
-      case 'Aquaman.workflowApproved':
-      case 'Aquaman.workflowCanceled':
+      case 'Aquaman.executeWorkflow':
+      case 'Aquaman.cancelWorkflow':
 
         this._leader.handleEvent(e);
 
