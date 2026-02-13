@@ -16,7 +16,7 @@
     }
   },
   "background": {
-    "service_worker": "./Service-Worker.js",
+    "service_worker": "./service-worker.js",
     "type": "module"
   },
   "default_locale": "en_US",
