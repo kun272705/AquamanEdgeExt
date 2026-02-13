@@ -1,5 +1,5 @@
 
-import { Ext } from './ext.js';
+import { Ext } from './Ext.js';
 
 const ext = new Ext();
 
