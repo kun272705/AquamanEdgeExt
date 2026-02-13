@@ -49,8 +49,8 @@ export class Port {
 
         break;
 
-      case 'Aquaman.executeWorkflow':
-      case 'Aquaman.cancelWorkflow':
+      case 'Aquaman.workflowApproved':
+      case 'Aquaman.workflowCanceled':
 
         this._ext.handelEvent(e);
 

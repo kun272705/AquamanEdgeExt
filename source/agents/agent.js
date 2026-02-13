@@ -32,13 +32,13 @@ export class Agent {
 
         break;
 
-      case 'Aquaman.executeWorkflow':
+      case 'Aquaman.workflowApproved':
 
         this._startWorkflow(e.detail);
 
         break;
 
-      case 'Aquaman.cancelWorkflow':
+      case 'Aquaman.workflowCanceled':
 
         this._stopWorkflow();
 

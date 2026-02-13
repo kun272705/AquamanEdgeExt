@@ -1,9 +1,9 @@
 
-import { Action } from './action.js';
-import { Tab } from './tab.js';
-import { Bug } from './bug.js';
-import { Leader } from './leader.js';
-import { Port } from './port.js';
+import { Action } from './Action.js';
+import { Tab } from './Tab.js';
+import { Bug } from './Bug.js';
+import { Leader } from './Leader.js';
+import { Port } from './Port.js';
 
 export class Ext {
 
@@ -78,8 +78,8 @@ export class Ext {
 
         break;
 
-      case 'Aquaman.executeWorkflow':
-      case 'Aquaman.cancelWorkflow':
+      case 'Aquaman.workflowApproved':
+      case 'Aquaman.workflowCanceled':
 
         this._leader.handleEvent(e);
 
