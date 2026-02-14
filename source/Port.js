@@ -35,7 +35,7 @@ export class Port {
 
     if (this._state !== 'on') return;
 
-    switch (`${e.sender}.${e.type}`) {
+    switch (e.type) {
 
       case 'AquamanEdgeExt.workflowQueued':
       case 'AquamanEdgeExt.workflowProgressed':
@@ -81,7 +81,7 @@ export class Port {
     if (this._state !== state) {
 
       this._state = state;
-      this._aquamanEdgeExt.handleEvent({ 'sender': 'Port', 'type': 'stateChanged', 'detail': { 'state': this._state } });
+      this._aquamanEdgeExt.handleEvent({ 'type': 'Port.stateChanged', 'detail': { 'state': this._state } });
     }
   }
 };

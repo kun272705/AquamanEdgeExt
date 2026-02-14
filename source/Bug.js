@@ -12,14 +12,14 @@ export class Bug {
 
   enjoy() {
 
-    chrome.debugger.onEvent.addListener((source, type, args) => this.handleEvent({ 'sender': '', 'type': type, 'detail': { 'source': source, 'args': args } }));
+    chrome.debugger.onEvent.addListener((source, type, args) => this.handleEvent({ 'type': type, 'detail': { 'source': source, 'args': args } }));
   }
 
   handleEvent(e) {
 
-    if (!(this._state === 'on' || `${e.sender}.${e.type}` === 'Port.stateChanged')) return;
+    if (!(this._state === 'on' || e.type === 'Port.stateChanged')) return;
 
-    switch (`${e.sender}.${e.type}`) {
+    switch (e.type) {
 
       case 'Port.stateChanged':
 
@@ -43,7 +43,7 @@ export class Bug {
     try {
       const tab = await chrome.tabs.get(tabId);
       const responseBody = await chrome.debugger.sendCommand({ 'tabId': tabId }, 'Fetch.getResponseBody', { 'requestId': requestId });
-      this._aquamanEdgeExt.handleEvent({ 'sender': 'Bug', 'type': 'conversationIntercepted', 'detail': { 'tab': tab, ...args, 'responseBody': responseBody } });
+      this._aquamanEdgeExt.handleEvent({ 'type': 'Bug.conversationIntercepted', 'detail': { 'tab': tab, ...args, 'responseBody': responseBody } });
     } catch (error) {
       console.warn(Date.now() / 1000, error);
     }
@@ -53,5 +53,7 @@ export class Bug {
     } catch (error) {
       console.warn(Date.now() / 1000, error);
     }
+
+    console.info(Date.now() / 1000, `Intercepted ${tabId}/${requestId}`);
   }
 };

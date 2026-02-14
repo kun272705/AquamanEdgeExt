@@ -47,9 +47,9 @@ export class AquamanEdgeExt {
 
   handleEvent(e) {
 
-    if (!(this._state === 'on' || `${e.sender}.${e.type}` === 'Port.stateChanged')) return;
+    if (!(this._state === 'on' || e.type === 'Port.stateChanged')) return;
 
-    switch (`${e.sender}.${e.type}`) {
+    switch (e.type) {
 
       case 'Port.stateChanged':
 
