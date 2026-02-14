@@ -1,13 +1,13 @@
 
 export class Bug {
 
-  _ext;
+  _aquamanEdgeExt;
 
   _state;
 
-  constructor(ext) {
+  constructor(aquamanEdgeExt) {
 
-    this._ext = ext;
+    this._aquamanEdgeExt = aquamanEdgeExt;
   }
 
   enjoy() {
@@ -43,7 +43,7 @@ export class Bug {
     try {
       const tab = await chrome.tabs.get(tabId);
       const responseBody = await chrome.debugger.sendCommand({ 'tabId': tabId }, 'Fetch.getResponseBody', { 'requestId': requestId });
-      this._ext.handleEvent({ 'sender': 'Bug', 'type': 'conversationIntercepted', 'detail': { 'tab': tab, ...args, 'responseBody': responseBody } });
+      this._aquamanEdgeExt.handleEvent({ 'sender': 'Bug', 'type': 'conversationIntercepted', 'detail': { 'tab': tab, ...args, 'responseBody': responseBody } });
     } catch (error) {
       console.warn(Date.now() / 1000, error);
     }

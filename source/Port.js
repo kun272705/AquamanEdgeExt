@@ -1,7 +1,7 @@
 
 export class Port {
 
-  _ext;
+  _aquamanEdgeExt;
 
   _state;
 
@@ -9,9 +9,9 @@ export class Port {
 
   _port;
 
-  constructor(ext) {
+  constructor(aquamanEdgeExt) {
     
-    this._ext = ext;
+    this._aquamanEdgeExt = aquamanEdgeExt;
 
     this._remoteAddress = 'ws://[::1]:2705/';
   }
@@ -52,7 +52,7 @@ export class Port {
       case 'Aquaman.workflowApproved':
       case 'Aquaman.workflowCanceled':
 
-        this._ext.handelEvent(e);
+        this._aquamanEdgeExt.handelEvent(e);
 
         break;
     }
@@ -81,7 +81,7 @@ export class Port {
     if (this._state !== state) {
 
       this._state = state;
-      this._ext.handleEvent({ 'sender': 'Port', 'type': 'stateChanged', 'detail': { 'state': this._state } });
+      this._aquamanEdgeExt.handleEvent({ 'sender': 'Port', 'type': 'stateChanged', 'detail': { 'state': this._state } });
     }
   }
 };

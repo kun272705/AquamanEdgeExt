@@ -1,15 +1,15 @@
 
 export class Leader {
 
-  _ext;
+  _aquamanEdgeExt;
 
   _state;
 
   _registeredAgents;
 
-  constructor(ext) {
+  constructor(aquamanEdgeExt) {
     
-    this._ext = ext;
+    this._aquamanEdgeExt = aquamanEdgeExt;
 
     this._registeredAgents = [
     ];
@@ -42,7 +42,7 @@ export class Leader {
       case 'AquamanEdgeExt.workflowQueued':
       case 'AquamanEdgeExt.workflowProgressed':
 
-        this._ext.handleEvent(e);
+        this._aquamanEdgeExt.handleEvent(e);
 
         break;
 

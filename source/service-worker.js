@@ -1,6 +1,6 @@
 
-import { Ext } from './Ext.js';
+import { AquamanEdgeExt } from './AquamanEdgeExt.js';
 
-const ext = new Ext();
+const aquamanEdgeExt = new AquamanEdgeExt();
 
-ext.enjoy();
+aquamanEdgeExt.enjoy();

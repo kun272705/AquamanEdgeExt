@@ -1,13 +1,13 @@
 
 export class Action {
 
-  _ext;
+  _aquamanEdgeExt;
 
   _state;
 
-  constructor(ext) {
+  constructor(aquamanEdgeExt) {
 
-    this._ext = ext;
+    this._aquamanEdgeExt = aquamanEdgeExt;
   }
 
   enjoy() {

@@ -5,7 +5,7 @@ import { Bug } from './Bug.js';
 import { Leader } from './Leader.js';
 import { Port } from './Port.js';
 
-export class Ext {
+export class AquamanEdgeExt {
 
   _action;
 
