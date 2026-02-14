@@ -64,13 +64,13 @@ export class Port {
 
     this._port.addEventListener('open', e => {
 
-      console.info(Date.now() / 1000, e);
+      console.info(Date.now() / 1000, `Connected to ${this._remoteAddress}`);
       this._syncState('on');
     });
 
     this._port.addEventListener('close', e => {
 
-      console.warn(Date.now() / 1000, e);
+      console.warn(Date.now() / 1000, `Disconnected from ${this._remoteAddress}`);
       this._syncState('off');
       setTimeout(() => this._connect(), 3000);
     });

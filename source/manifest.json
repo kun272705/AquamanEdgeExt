@@ -16,7 +16,7 @@
     }
   },
   "background": {
-    "service_worker": "./service-worker.js",
+    "service_worker": "./entry-point.js",
     "type": "module"
   },
   "default_locale": "en_US",
