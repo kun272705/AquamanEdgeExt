@@ -17,3 +17,5 @@ for dir in source/agents/*/; do
 
   build_js "${dir}content-script.js" "${dir/source/target}content-script.js"
 done
+
+echo -e "\nDone"
