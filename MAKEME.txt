@@ -11,3 +11,5 @@ npx rollup -p node-resolve -p commonjs -i target/entry-point.transpiled.js -o ta
 npx terser target/entry-point.bundled.js -o target/entry-point.compressed.js -c -m
 cp target/entry-point.compressed.js target/entry-point.js
 rm -rf target/entry-point.*.js
+
+mkdir -p target/agents/
