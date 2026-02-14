@@ -1,0 +1,19 @@
+#!/bin/bash
+
+set -euo pipefail
+IFS=$'\n\t'
+
+. .builder
+
+npm install
+
+mkdir -p target/
+
+cp -r source/manifest.json source/_locales/ source/icons/ target/
+
+build_js source/service-worker.js target/service-worker.js
+
+for dir in source/agents/*/; do
+
+  build_js "${dir}content-script.js" "${dir/source/target}content-script.js"
+done
