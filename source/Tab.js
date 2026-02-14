@@ -60,9 +60,9 @@ export class Tab {
     try {
       await chrome.debugger.attach({ 'tabId': tabId }, this._CDPVersion);
       await chrome.debugger.sendCommand({ 'tabId': tabId }, 'Fetch.enable', { 'patterns': [{ 'requestStage': 'Response' }] });
-      console.info(Date.now() / 1000, `Attached to ${tabId}`);
+      console.log(Date.now() / 1000, `Attached to ${tabId}`);
     } catch (error) {
-      console.warn(Date.now() / 1000, error);
+      console.log(Date.now() / 1000, error);
     }
   }
 
@@ -70,9 +70,9 @@ export class Tab {
 
     try {
       await chrome.debugger.detach({ 'tabId': tabId });
-      console.info(Date.now() / 1000, `Detached from ${tabId}`);
+      console.log(Date.now() / 1000, `Detached from ${tabId}`);
     } catch (error) {
-      console.warn(Date.now() / 1000, error);
+      console.log(Date.now() / 1000, error);
     }
   }
 

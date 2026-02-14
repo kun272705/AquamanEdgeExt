@@ -45,15 +45,15 @@ export class Bug {
       const responseBody = await chrome.debugger.sendCommand({ 'tabId': tabId }, 'Fetch.getResponseBody', { 'requestId': requestId });
       this._aquamanEdgeExt.handleEvent({ 'type': 'Bug.conversationIntercepted', 'detail': { 'tab': tab, ...args, 'responseBody': responseBody } });
     } catch (error) {
-      console.warn(Date.now() / 1000, error);
+      console.log(Date.now() / 1000, error);
     }
 
     try {
       await chrome.debugger.sendCommand({ 'tabId': tabId }, 'Fetch.continueRequest', { 'requestId': requestId });
     } catch (error) {
-      console.warn(Date.now() / 1000, error);
+      console.log(Date.now() / 1000, error);
     }
 
-    console.info(Date.now() / 1000, `Intercepted ${tabId}/${requestId}`);
+    console.log(Date.now() / 1000, `Intercepted ${tabId}/${requestId}`);
   }
 };
