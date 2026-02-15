@@ -1,20 +1,23 @@
 
 build_js() {
 
-  if [ -f "$1" ]; then
+  local input="$1"
+  local output="$2"
 
-    echo -e "\n$1 -> $2"
+  if [ -f "$input" ]; then
 
-    npx rollup -i "$1" -o "${2/%.js/.combined.js}" --failAfterWarnings
+    echo -e "\n$input -> $2"
 
-    npx babel "${2/%.js/.combined.js}" -o "${2/%.js/.polyfilled.js}"
+    npx rollup -i "$input" -o "${output/%.js/.combined.js}" --failAfterWarnings
 
-    npx rollup -p node-resolve -p commonjs -i "${2/%.js/.polyfilled.js}" -o "${2/%.js/.bundled.js}" --failAfterWarnings
+    npx babel "${output/%.js/.combined.js}" -o "${output/%.js/.polyfilled.js}"
 
-    npx terser "${2/%.js/.bundled.js}" -o "${2/%.js/.compressed.js}" -c -m
+    npx rollup -p node-resolve -p commonjs -i "${output/%.js/.polyfilled.js}" -o "${output/%.js/.bundled.js}" --failAfterWarnings
 
-    cp "${2/%.js/.compressed.js}" "$2"
+    npx terser "${output/%.js/.bundled.js}" -o "${output/%.js/.compressed.js}" -c -m
 
-    rm -rf ${2/%.js/.*.js}
+    cp "${output/%.js/.compressed.js}" "$output"
+
+    rm -rf ${output/%.js/.*.js}
   fi
 }
