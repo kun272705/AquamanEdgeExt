@@ -18,6 +18,9 @@ build_js() {
 
     cp "${output/%.js/.compressed.js}" "$output"
 
-    rm -rf ${output/%.js/.*.js}
+    rm "${output/%.js/.combined.js}"
+    rm "${output/%.js/.polyfilled.js}"
+    rm "${output/%.js/.bundled.js}"
+    rm "${output/%.js/.compressed.js}"
   fi
 }
