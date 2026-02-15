@@ -10,7 +10,7 @@ build_js() {
 
     npx rollup -i "$input" -o "${output/%.js/.combined.js}" --failAfterWarnings
 
-    npx babel "${output/%.js/.combined.js}" -o "${output/%.js/.polyfilled.js}"
+    npx swc "${output/%.js/.combined.js}" -o "${output/%.js/.polyfilled.js}"
 
     npx rollup -p node-resolve -p commonjs -i "${output/%.js/.polyfilled.js}" -o "${output/%.js/.bundled.js}" --failAfterWarnings
 

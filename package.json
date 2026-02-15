@@ -2,10 +2,9 @@
   "name": "AquamanEdgeExt",
   "version": "1.0.0",
   "devDependencies": {
-    "@babel/cli": "^7.28.6",
-    "@babel/preset-env": "^7.29.0",
     "@rollup/plugin-commonjs": "^29.0.0",
     "@rollup/plugin-node-resolve": "^16.0.3",
+    "@swc/cli": "^0.8.0",
     "core-js": "^3.48.0",
     "regenerator-runtime": "^0.14.1",
     "rollup": "^4.57.1",
