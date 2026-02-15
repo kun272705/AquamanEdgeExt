@@ -6,7 +6,7 @@ build_js() {
 
   if [ -f "$input" ]; then
 
-    echo -e "\n$input -> $2"
+    echo -e "\n$input -> $output"
 
     npx rollup -i "$input" -o "${output/%.js/.combined.js}" --failAfterWarnings
 
