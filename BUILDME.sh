@@ -6,15 +6,15 @@ source .builder.sh
 
 npm install
 
-mkdir -p target/
+mkdir -p tgt/
 
-cp -r source/manifest.json source/_locales/ source/icons/ target/
+cp -r src/manifest.json src/_locales/ src/icons/ tgt/
 
-build_js source/service-worker.js target/service-worker.js
+build_js src/service-worker.js tgt/service-worker.js
 
-for dir in source/agents/*/; do
+for dir in src/agents/*/; do
 
-  build_js "${dir}content-script.js" "${dir/source/target}content-script.js"
+  build_js "${dir}content-script.js" "${dir/src/tgt}content-script.js"
 done
 
 echo -e "\nDone"
