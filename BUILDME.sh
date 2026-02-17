@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 
 set -euo pipefail
-IFS=$'\n\t'
 
-. .builder
+source .builder.sh
 
 npm install
 

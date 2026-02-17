@@ -1,3 +1,6 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
 
 build_js() {
 
@@ -14,7 +17,7 @@ build_js() {
 
     npx rollup -p node-resolve -p commonjs -i "${output/%.js/.polyfilled.js}" -o "${output/%.js/.bundled.js}" --failAfterWarnings
 
-    if [[ "${NODE_ENV:=production}" == development ]]; then
+    if [[ "${NODE_ENV:-production}" == development ]]; then
 
       cp "${output/%.js/.bundled.js}" "$output"
     else
