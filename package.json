@@ -1,5 +1,5 @@
 {
-  "name": "AquamanEdgeExt",
+  "name": "aquamanedgeext",
   "version": "1.0.0",
   "devDependencies": {
     "@rollup/plugin-commonjs": "^29.0.0",
