@@ -13,7 +13,7 @@ export class Port {
     
     this._aquamanEdgeExt = aquamanEdgeExt;
 
-    this._remoteAddress = 'ws://[::1]:2705/';
+    this._remoteAddress = 'ws://localhost:2705/';
   }
   
   enjoy() {
