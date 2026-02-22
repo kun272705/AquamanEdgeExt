@@ -11,11 +11,11 @@ build_js() {
 
     echo -e "\n'$input' -> '$output'"
 
-    npx rollup -i "$input" -o "${output/%.js/.combined.js}" -f iife --failAfterWarnings
+    npx rollup -i "$input" -o "${output/%.js/.combined.js}" --failAfterWarnings
 
     npx swc "${output/%.js/.combined.js}" -o "${output/%.js/.polyfilled.js}"
 
-    npx rollup -p node-resolve -p commonjs -i "${output/%.js/.polyfilled.js}" -o "${output/%.js/.bundled.js}" --failAfterWarnings
+    npx rollup -p node-resolve -p commonjs -i "${output/%.js/.polyfilled.js}" -o "${output/%.js/.bundled.js}" -f iife --failAfterWarnings
 
     if [[ "${NODE_ENV:-production}" == development ]]; then
 
