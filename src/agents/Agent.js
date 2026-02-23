@@ -22,6 +22,7 @@ export class Agent {
       case 'Port.stateChanged':
 
         this._state = e.detail.state;
+
         if (this._state === 'off') this._stopWorkflow();
 
         break;

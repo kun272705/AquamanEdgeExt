@@ -36,9 +36,11 @@ export class Action {
       '48': `./icons/icon48-${this._state}.png`,
       '128': `./icons/icon128-${this._state}.png`
     };
+
     chrome.action.setIcon({ 'path': path });
 
     const title = chrome.i18n.getMessage(`aquaman_is_${this._state}`);
+
     chrome.action.setTitle({ 'title': title });
   }
 };

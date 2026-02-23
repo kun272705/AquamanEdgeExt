@@ -42,15 +42,20 @@ export class Bug {
 
     try {
       const tab = await chrome.tabs.get(tabId);
+
       const responseBody = await chrome.debugger.sendCommand({ 'tabId': tabId }, 'Fetch.getResponseBody', { 'requestId': requestId });
+
       this._aquamanEdgeExt.handleEvent({ 'type': 'Bug.conversationIntercepted', 'detail': { 'tab': tab, ...args, 'responseBody': responseBody } });
     } catch (error) {
+
       console.log(Date.now() / 1000, error);
     }
 
     try {
+
       await chrome.debugger.sendCommand({ 'tabId': tabId }, 'Fetch.continueRequest', { 'requestId': requestId });
     } catch (error) {
+
       console.log(Date.now() / 1000, error);
     }
 

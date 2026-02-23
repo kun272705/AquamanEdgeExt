@@ -23,9 +23,12 @@ export class Port {
     this._port.addEventListener('message', e => {
 
       try {
+
         const data = JSON.parse(e.data);
+
         this.handleEvent(data);
       } catch (error) {
+
         console.log(Date.now() / 1000, error);
       }
     });
@@ -41,9 +44,12 @@ export class Port {
       case 'AquamanEdgeExt.workflowProgressed':
 
         try {
+
           const data = JSON.stringify(e);
+
           this._port.send(data);
         } catch (error) {
+
           console.log(Date.now() / 1000, error);
         }
 
@@ -65,13 +71,16 @@ export class Port {
     this._port.addEventListener('open', e => {
 
       console.log(Date.now() / 1000, `Connected to ${this._remoteAddress}`);
+
       this._syncState('on');
     });
 
     this._port.addEventListener('close', e => {
 
       console.log(Date.now() / 1000, `Disconnected from ${this._remoteAddress}`);
+
       this._syncState('off');
+
       setTimeout(() => this._connect(), 3000);
     });
   }
@@ -81,6 +90,7 @@ export class Port {
     if (this._state !== state) {
 
       this._state = state;
+
       this._aquamanEdgeExt.handleEvent({ 'type': 'Port.stateChanged', 'detail': { 'state': this._state } });
     }
   }
