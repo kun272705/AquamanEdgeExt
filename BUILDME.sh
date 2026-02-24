@@ -8,9 +8,13 @@ npm install
 
 mkdir -p tgt/
 
-cp -r src/manifest.json src/_locales/ src/icons/ tgt/
+cp src/manifest.json tgt/
+cp -r src/_locales/ -t tgt/
+cp -r src/icons/ -t tgt/
 
 build_js src/service-worker.js tgt/service-worker.js
+
+mkdir -p tgt/agents/
 
 for dir in src/agents/*/; do
 
