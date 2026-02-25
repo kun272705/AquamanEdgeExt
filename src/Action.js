@@ -32,9 +32,9 @@ export class Action {
     this._state = state;
 
     const path = {
-      '16': `./icons/icon16-${this._state}.png`,
-      '48': `./icons/icon48-${this._state}.png`,
-      '128': `./icons/icon128-${this._state}.png`
+      '16': `./images/action-icon-16-${this._state}.png`,
+      '48': `./images/action-icon-48-${this._state}.png`,
+      '128': `./images/action-icon-128-${this._state}.png`
     };
 
     chrome.action.setIcon({ 'path': path });

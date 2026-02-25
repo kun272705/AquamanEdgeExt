@@ -4,19 +4,19 @@
   "version": "1.0.0",
   "description": "This is AquamanEdgeExt.",
   "icons": {
-    "16": "./icons/icon16.png",
-    "48": "./icons/icon48.png",
-    "128": "./icons/icon128.png"
+    "16": "./images/icon-16.png",
+    "48": "./images/icon-48.png",
+    "128": "./images/icon-128.png"
   },
   "action": {
     "default_icon": {
-      "16": "./icons/icon16-off.png",
-      "48": "./icons/icon48-off.png",
-      "128": "./icons/icon128-off.png"
+      "16": "./images/action-icon-16-off.png",
+      "48": "./images/action-icon-48-off.png",
+      "128": "./images/action-icon-128-off.png"
     }
   },
   "background": {
-    "service_worker": "./service-worker.js",
+    "service_worker": "./background.js",
     "type": "module"
   },
   "default_locale": "en_US",
@@ -29,6 +29,7 @@
     "tabs",
     "debugger",
     "scripting",
-    "downloads"
+    "downloads",
+    "power"
   ]
 }
