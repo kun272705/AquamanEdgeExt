@@ -9,8 +9,10 @@ npm install
 mkdir -p tgt/
 
 cp src/manifest.json tgt/
-cp -r src/_locales/ -t tgt/
+
 cp -r src/images/ -t tgt/
+
+cp -r src/_locales/ -t tgt/
 
 build_js src/background.js tgt/background.js
 

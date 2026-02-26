@@ -19,6 +19,13 @@ export class AquamanEdgeExt {
 
   _state;
 
+  static main() {
+
+    const aquamanEdgeExt = new AquamanEdgeExt();
+
+    aquamanEdgeExt.enjoy();
+  }
+
   constructor() {
 
     this._action = new Action(this);
