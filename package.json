@@ -5,6 +5,7 @@
     "@rollup/plugin-commonjs": "^29.0.0",
     "@rollup/plugin-node-resolve": "^16.0.3",
     "@swc/cli": "^0.8.0",
+    "@swc/core": "^1.15.17",
     "core-js": "^3.48.0",
     "regenerator-runtime": "^0.14.1",
     "rollup": "^4.59.0",
